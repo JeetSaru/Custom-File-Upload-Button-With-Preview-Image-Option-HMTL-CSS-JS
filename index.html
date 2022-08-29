@@ -1,0 +1,165 @@
+<!-- 
+
+Custom File Button With Image Preview Option
+
+Code written by:
+👨🏻‍⚕️ Coding Design (Jeet Saru)
+
+> You can do whatever you want with the code. However if you love my content, you can **SUBSCRIBED** my YouTube Channel.
+
+🌎link: www.youtube.com/codingdesign 
+
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Custom File Upload Button | Preview Image Before Upload | HTML CSS & JS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background-color: #00283e;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+
+        /*1st custom file upload button*/
+
+        .profile {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            transition: .3s ease-in-out;
+        }
+
+        .profile label {
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, orangered, gold);
+
+            text-align: center;
+            line-height: 227px;
+
+            overflow: hidden;
+            border-radius: 50%;
+            border: 4px solid #fff;
+            cursor: pointer;
+        }
+
+        .profile label:hover .camera {
+            transform: translate(-27.5%, -43.5%) scale(1.4);
+            border: 30px solid #fff;
+        }
+
+        .profile input[ type="file"] {
+            display: none;
+        }
+
+        .profile .user {
+            font-size: 9rem;
+            color: transparent;
+            background-color: #000;
+            -webkit-background-clip: text;
+        }
+
+        .profile .camera {
+            position: absolute;
+            line-height: normal;
+            bottom: 0;
+            right: 15px;
+
+            padding: .5rem;
+            background: yellow;
+
+            border-radius: 50%;
+            font-size: 1.5rem;
+            border: 4px solid #fff;
+            transition: .3s ease-in-out;
+        }
+
+        /*2nd file upload button*/
+
+        .file_upload_button {
+            width: 200px;
+            transition: .3s ease-in-out;
+        }
+
+        .profile:hover,
+        .file_upload_button:hover {
+            transform: scale(1.06);
+            filter: brightness(150%);
+        }
+
+        .file_upload_button::-webkit-file-upload-button {
+            width: 100%;
+            padding: 1.5rem 2rem;
+            background: linear-gradient(45deg, orangered, gold);
+            border: none;
+            border-radius: 2rem;
+        }
+
+        /*3rd File upload button*/
+
+        .file_upload_button.v2::-webkit-file-upload-button {
+            background: none;
+            border: 3px solid orange;
+            color: orange;
+            background-size: contain;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="profile">
+        <label>
+            <span class="user">&#128100;</span>
+            <span class="camera">&#128247;</span>
+            <input type="file">
+        </label>
+    </div>
+
+    <input type="file" class="file_upload_button">
+    <input type="file" class="file_upload_button v2">
+
+
+    <script>
+
+        let input_file = document.querySelector('input[type="file"]');
+        let profile_img = document.querySelector('.profile label');
+
+        input_file.onchange = (e) => {
+            // accessing 1st choosen file
+            let file = e.target.files[0];
+
+            // Store "file's data" with the help of "URL Object"
+            let url = URL.createObjectURL(file);
+
+            // Changing background of 'label' and hiding user emoji icon
+            profile_img.style.background = `url(${url}) center / cover no-repeat`;
+            profile_img.querySelector('.user').style.display = "none";
+
+            // Free up memory space (better perfomance)
+            setTimeout(() => {
+                URL.revokeObjectURL(url);
+            }, 100)
+        }
+    </script>
+</body>
+
+</html>
